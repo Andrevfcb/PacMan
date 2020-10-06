@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
-0,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
+1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
 1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
 1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
 1,3,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,3,1,
@@ -62,7 +62,29 @@ createBoard()
 
  squares[currentIndexPacman].classList.add('pac-man')
 
+function movePacman(e) {
+    squares[currentIndexPacman].classList.remove('pac-man')
+    console.log(e.keyCode);
+    
+    switch (e.keyCode) {
+        case 37:
+            if (currentIndexPacman % width !== 0 && !squares[currentIndexPacman - 1].classList.contains('wall')) {currentIndexPacman -= 1}
+            break;
+        case 38:
+            if (currentIndexPacman - width >= 0 && !squares[currentIndexPacman - width].classList.contains('wall')) {currentIndexPacman -= width}
+            break;
+        case 39:
+            if (currentIndexPacman % width < width -1 && !squares[currentIndexPacman + 1].classList.contains('wall')) {currentIndexPacman += 1}
+            break;
+        case 40:
+            if (currentIndexPacman + width < width * width && !squares[currentIndexPacman + width].classList.contains('wall')) {currentIndexPacman += width}
+            break;
+    }
 
+    squares[currentIndexPacman].classList.add('pac-man')
+}
+
+document.addEventListener('keyup', movePacman)
 
 })
 
