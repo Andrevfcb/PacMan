@@ -6,6 +6,11 @@
     border: solid black;
 }
 
+.score {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
 .game-area div {
     width: 20px;
     height: 20px;
@@ -23,6 +28,11 @@
 
 .power-pellet {
     background-color: green;
+    border-radius: 50%;
+}
+
+.ghost-lair {
+    background-color: pink;
     border-radius: 50%;
 }
 

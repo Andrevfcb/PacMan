@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameArea = document.querySelector('.game-area')
+    const scoreDisplay = document.querySelector('.score span')
+    let score = 0
     const width = 28
     const layout = [
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -58,9 +60,13 @@ function createBoard() {
 
 createBoard()
 
+
  let currentIndexPacman = 490
 
+ 
  squares[currentIndexPacman].classList.add('pac-man')
+
+ 
 
 function movePacman(e) {
     squares[currentIndexPacman].classList.remove('pac-man')
@@ -68,23 +74,34 @@ function movePacman(e) {
     
     switch (e.keyCode) {
         case 37:
-            if (currentIndexPacman % width !== 0 && !squares[currentIndexPacman - 1].classList.contains('wall')) {currentIndexPacman -= 1}
+            if (currentIndexPacman % width !== 0 && !squares[currentIndexPacman - 1].classList.contains('wall') && !squares[currentIndexPacman - 1].classList.contains('ghost-lair')) {currentIndexPacman -= 1}
             break;
         case 38:
-            if (currentIndexPacman - width >= 0 && !squares[currentIndexPacman - width].classList.contains('wall')) {currentIndexPacman -= width}
+            if (currentIndexPacman - width >= 0 && !squares[currentIndexPacman - width].classList.contains('wall') && !squares[currentIndexPacman - width].classList.contains('ghost-lair')) {currentIndexPacman -= width}
             break;
         case 39:
-            if (currentIndexPacman % width < width -1 && !squares[currentIndexPacman + 1].classList.contains('wall')) {currentIndexPacman += 1}
+            if (currentIndexPacman % width < width -1 && !squares[currentIndexPacman + 1].classList.contains('wall') && !squares[currentIndexPacman + 1].classList.contains('ghost-lair')) {currentIndexPacman += 1}
             break;
         case 40:
-            if (currentIndexPacman + width < width * width && !squares[currentIndexPacman + width].classList.contains('wall')) {currentIndexPacman += width}
+            if (currentIndexPacman + width < width * width && !squares[currentIndexPacman + width].classList.contains('wall')&& !squares[currentIndexPacman + width].classList.contains('ghost-lair')) {currentIndexPacman += width}
             break;
     }
 
     squares[currentIndexPacman].classList.add('pac-man')
+
+
+    dotEaten()
 }
 
 document.addEventListener('keyup', movePacman)
+
+function dotEaten() {
+    if(squares[currentIndexPacman].classList.contains('pac-dot')){
+        squares[currentIndexPacman].classList.remove('pac-dot')
+        score++
+        scoreDisplay.innerHTML = ` ${score}`
+    }
+}
 
 })
 
