@@ -91,6 +91,7 @@ function movePacman(e) {
 
 
     dotEaten()
+    powerPelletEaten()
 }
 
 document.addEventListener('keyup', movePacman)
@@ -103,6 +104,18 @@ function dotEaten() {
     }
 }
 
+function powerPelletEaten() {
+    if(squares[currentIndexPacman].classList.contains('power-pellet')) {
+        ghosts.forEach(ghost => ghost.isScared = true)
+        setTimeout(unScaredGhosts, 10000)
+        squares[currentIndexPacman].classList.remove('power-pellet')
+    }
+}
+
+function unScaredGhosts() {
+    ghosts.forEach(ghost => ghost.isScared = false)
+}
+
 class Ghost {
     constructor (className, startIndex, speed) {
         this.className = className
@@ -110,6 +123,7 @@ class Ghost {
         this.speed = speed
         this.currentIndex = startIndex
         this.timerID = NaN
+        this.isScared = false
     }
 }
 
@@ -138,8 +152,19 @@ function moveGhost(ghost) {
             ghost.currentIndex += direction
             squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
         } else direction = directions[Math.floor(Math.random() * directions.length)]
+
+        if (ghost.isScared) {squares[ghost.currentIndex].classList.add('scared-ghost')}
+
+        if (
+            ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+            ghost.currentIndex = ghost.startIndex
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+        }
     }, ghost.speed)
 }
+
+
 
 
 })
