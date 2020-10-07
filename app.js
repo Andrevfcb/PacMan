@@ -92,6 +92,8 @@ function movePacman(e) {
 
     dotEaten()
     powerPelletEaten()
+    gameOver()
+    win()
 }
 
 document.addEventListener('keyup', movePacman)
@@ -107,6 +109,8 @@ function dotEaten() {
 function powerPelletEaten() {
     if(squares[currentIndexPacman].classList.contains('power-pellet')) {
         ghosts.forEach(ghost => ghost.isScared = true)
+        score += 10
+        scoreDisplay.innerHTML = ` ${score}`
         setTimeout(unScaredGhosts, 10000)
         squares[currentIndexPacman].classList.remove('power-pellet')
     }
@@ -155,13 +159,30 @@ function moveGhost(ghost) {
 
         if (ghost.isScared) {squares[ghost.currentIndex].classList.add('scared-ghost')}
 
-        if (
-            ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
-            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
-            ghost.currentIndex = ghost.startIndex
-            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+        if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+        squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+        ghost.currentIndex = ghost.startIndex
+        squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
         }
+
+        gameOver()
     }, ghost.speed)
+}
+
+function gameOver() {
+    if (!squares[currentIndexPacman].classList.contains('scared-ghost') && squares[currentIndexPacman].classList.contains('ghost')) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerID))
+        document.removeEventListener('keyup', movePacman)
+        setTimeout(function() {alert('Game Over!')}, 500)
+        }
+}
+
+function win() {
+    if (score === 274) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerID))
+        document.removeEventListener('keyup', movePacman)
+        setTimeout(function() {alert('YOU WON!')}, 500)
+        }
 }
 
 
