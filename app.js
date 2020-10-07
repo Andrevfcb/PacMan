@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
 1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
 1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
+1,1,1,1,1,1,0,1,1,4,1,1,0,1,1,0,1,1,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
+4,4,4,4,4,4,0,1,1,4,4,2,2,2,2,2,2,4,4,1,1,0,4,4,4,4,4,4,
 1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
 1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1 - wall
 // 2 - ghost-lair
 // 3 - power-pellet
-// 4 - emty
+// 4 - empty
 
 function createBoard() {
     for (let i=0; i <layout.length; i++){
@@ -60,13 +60,9 @@ function createBoard() {
 
 createBoard()
 
-
  let currentIndexPacman = 490
-
  
  squares[currentIndexPacman].classList.add('pac-man')
-
- 
 
 function movePacman(e) {
     squares[currentIndexPacman].classList.remove('pac-man')
@@ -88,7 +84,6 @@ function movePacman(e) {
     }
 
     squares[currentIndexPacman].classList.add('pac-man')
-
 
     dotEaten()
     powerPelletEaten()
@@ -132,11 +127,10 @@ class Ghost {
 }
 
 ghosts = [
-    new Ghost ('blinky', 348, 250),
-    new Ghost ('pinky', 376, 400),
-    new Ghost ('inky', 351, 300),
-    new Ghost ('clyde', 379, 500)
-
+    new Ghost ('blinky', 348, 150),
+    new Ghost ('pinky', 376, 200),
+    new Ghost ('inky', 351, 150),
+    new Ghost ('clyde', 379, 250)
 ]
 
 ghosts.forEach(ghost => {
@@ -178,16 +172,12 @@ function gameOver() {
 }
 
 function win() {
-    if (score === 274) {
+    if (score === 270) {
         ghosts.forEach(ghost => clearInterval(ghost.timerID))
         document.removeEventListener('keyup', movePacman)
         setTimeout(function() {alert('YOU WON!')}, 500)
         }
 }
-
-
-
-
 })
 
 
