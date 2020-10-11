@@ -167,7 +167,7 @@ function gameOver() {
     if (!squares[currentIndexPacman].classList.contains('scared-ghost') && squares[currentIndexPacman].classList.contains('ghost')) {
         ghosts.forEach(ghost => clearInterval(ghost.timerID))
         document.removeEventListener('keyup', movePacman)
-        setTimeout(function() {alert('Game Over!')}, 500)
+    setTimeout(function() {alert(`Game Over! Your score: ${score}`)}, 500)
         }
 }
 
