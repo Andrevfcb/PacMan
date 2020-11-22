@@ -1,4 +1,4 @@
 # PacMan
 Simple PacMan game using JS
 
-You can visit this game on the link https://andrevfcb.github.io/PacMan/
+You can visit this game at the link https://andrevfcb.github.io/PacMan/
